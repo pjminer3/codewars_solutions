@@ -65,3 +65,16 @@ function score( dice ) {
   // Return result
   return result;
 }
+
+// // BEST ANSWER
+// var score = function(dice) {
+//   var rolls = [0, 0, 0, 0, 0, 0];
+//   var trp = [1000, 200, 300, 400, 500, 600];
+//   var sng = [100, 0, 0, 0, 50, 0];
+//   dice.forEach(function(die) {
+//     rolls[die - 1] ++;
+//   });
+//   return rolls.reduce(function(sum, roll, idx) {
+//     return sum + ((roll > 2) ? trp[idx] : 0) + ((roll % 3) * sng[idx]);
+//   }, 0);
+// };
