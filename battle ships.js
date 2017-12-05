@@ -91,7 +91,7 @@ function damagedOrSunk (board, attacks){
   // COMPARE BOARDS
   for (var key in firstBoardCount) {  
     if (key === '0') {
-      // Don't Do Anything!
+      // Don't Do Anything! Nothing changes
     } else if (!secondBoardCount[key]) {
       /* if the number is gone; sunk += 1*/
       result.sunk += 1;
