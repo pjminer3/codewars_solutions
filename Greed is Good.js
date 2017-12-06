@@ -25,6 +25,7 @@
 
 function score( dice ) {
   // Define result, counter hash, points for tripples/singles
+  // Green cube
   var result = 0;
   var counter = {};
   var tripples = {
