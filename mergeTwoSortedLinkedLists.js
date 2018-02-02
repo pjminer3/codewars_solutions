@@ -25,39 +25,39 @@ function ListNode(val) {
   this.next = null;
 }
 
-// const mergeTwoLists = (l1, l2) => {
-//   let values = getValues(l1).concat(getValues(l2)).sort((a, b) => {
-//     return a - b;
-//   });
+const mergeTwoLists = (l1, l2) => {
+  let values = getValues(l1).concat(getValues(l2)).sort((a, b) => {
+    return a - b;
+  });
 
-//   if (!values.length) {
-//     return [];
-//   }
+  if (!values.length) {
+    return [];
+  }
 
-//   let l3 = new ListNode(values.shift());
+  let l3 = new ListNode(values.shift());
 
-//   for (var i = 0; i < values.length; i++) {
-//     getLastNode(l3).next = new ListNode(values[i]);
-//   }
+  for (var i = 0; i < values.length; i++) {
+    getLastNode(l3).next = new ListNode(values[i]);
+  }
 
-//   return l3;
-// };
+  return l3;
+};
 
-// const getLastNode = (list) => {
-//   while (list.next) {
-//     list = list.next
-//   }
-//   return list;
-// }
+const getLastNode = (list) => {
+  while (list.next) {
+    list = list.next
+  }
+  return list;
+}
 
-// const getValues = (list) => {
-//   const values = [];
-//   while (list) {
-//     values.push(list.val);
-//     list = list.next;
-//   }
-//   return values;
-// }
+const getValues = (list) => {
+  const values = [];
+  while (list) {
+    values.push(list.val);
+    list = list.next;
+  }
+  return values;
+}
 
 // ---------------
 
