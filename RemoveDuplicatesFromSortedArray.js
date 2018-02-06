@@ -17,12 +17,8 @@ It doesn't matter what you leave beyond the new length.
  * @return {number}
  */
 const removeDuplicates = function(nums) {
-  let prevNum = undefined;
-
   for (let i = nums.length - 1; i >= 0; i--) {
-    if (nums[i] !== prevNum) {
-      prevNum = nums[i];
-    } else {
+    if (nums[i] === nums[i + 1]) {
       nums.splice(i, 1);
     }
   }
