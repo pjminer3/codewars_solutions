@@ -32,17 +32,32 @@ Your function should return length = 2, with the first two elements of nums bein
 //   return j;
 // };
 
-const removeElement = function(nums, val) {
-  let j = 0;
+// const removeElement = function(nums, val) {
+//   let j = 0;
 
-  for (var i = 0; i < nums.length; i++) {
-    if (nums[i] !== val) {
-      nums[j] = nums[i];
-      j++;
+//   for (var i = 0; i < nums.length; i++) {
+//     if (nums[i] !== val) {
+//       nums[j] = nums[i];
+//       j++;
+//     }
+//   }
+
+//   return j;
+// };
+
+const removeElement = function(nums, val) {
+  let i = 0;
+
+  while (i < nums.length) {
+    if (nums[i] === val) {
+      nums[i] = nums[nums.length - 1]
+      nums.pop();
+    } else {
+      i++;
     }
   }
 
-  return j;
+  return i;
 };
 
 console.log(removeElement([3,2,2,3], 3)); // 2 & [2, 2]
