@@ -14,29 +14,26 @@ If you have figured out the O(n) solution, try coding another solution using the
  * @return {number}
  */
 const maxSubArray = function(nums) {
-  let maxNum = null;
-  let newIteration = null;
+  let max = -Infinity;
+  let curr = 0;
 
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] > maxNum || maxNum === null) { maxNum = nums[i]; }
-    for (let j = i + 1; j < nums.length; j++) {
-      if (j === i + 1) {
-        newIteration = nums[i] + nums[j];
-      } else {
-        newIteration += nums[j];
-      }
+  for (let i = 0; i < nums.length; i+=1) {
+    curr += nums[i];
+    max = Math.max(max, curr);
 
-      if (newIteration > maxNum) {
-        maxNum = newIteration;
-      }
+    // if curr dips below 0, ONLY THEN does it make sense to start over
+    // Starting over before reaching a low of 0 leaves some value on the table
+    if (curr < 0) {
+      curr = 0
     }
   }
 
-  return maxNum;
-}
+  return max;
+};
 
-console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])); // [4, -1, 2, 1]
-// console.log(findBiggestCombo([-2, 1, -3, 4, -1, 2, 1, -5, 4], 4)); // [4, -1, 2, 1]
+console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])); // 6
+console.log(maxSubArray([-1, -2, -3])); //-1
+
 
 
 
