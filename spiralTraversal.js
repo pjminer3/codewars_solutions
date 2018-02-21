@@ -23,37 +23,25 @@
     // conßsole.log('We inside while')
     // first action: move right across first row
     for (let i = smallIdx; i <= largIdx; i++) {
-      let char = matrix[firstArr][i];
-      if (typeof char === 'number') {
-        result.push(char);
-      }
+      result.push(matrix[firstArr][i]);
     }
     firstArr++;
 
     // sectond action: move down across all rows at largIdx
     for (let i = firstArr; i <= lastArr; i++) {
-      let char = matrix[i][largIdx];
-      if (typeof char === 'number') {
-        result.push(char);
-      }
+      result.push(matrix[i][largIdx]);
     }
     largIdx--;
 
     // third action: move left across last row
     for (let i = largIdx; i >= smallIdx; i--) {
-      let char = matrix[lastArr][i];
-      if (typeof char === 'number') {
-        result.push(char);
-      }
+      result.push(matrix[lastArr][i]);
     }
     lastArr--;
 
     // fourth action: move up across all rows at smallIdx
     for (let i = lastArr; i >= firstArr; i--) {
-      let char = matrix[i][smallIdx];
-      if (typeof char === 'number') {
-        result.push(char);
-      }
+      result.push(matrix[i][smallIdx]);
     }
     smallIdx++;
   }
