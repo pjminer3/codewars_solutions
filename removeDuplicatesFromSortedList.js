@@ -25,11 +25,11 @@ function ListNode(val) {
 };
 
 const deleteDuplicates = function(head) {
-  // set head node
+  // handle edge case
   if (!head) {
     return [];
-  }
-  // let head = head;
+  }  
+
   // set current node
   let curNode = head;
   // set next node
@@ -41,15 +41,15 @@ const deleteDuplicates = function(head) {
 
   // while there is a next node
   while (!!curNext) {
-    // if next node's value equals current value
+    // first if statement to handle edge case of curNext being a duplicate and skipping over it
     if (head.next === curNext && head.val === curNext.val) {
       head.next = curNext.next;
       curNext = curNext.next;
+      // if next node's value equals current value
     } else if (curNext.val === curVal) {
       // next node = next.next
       curNext = curNext.next;
     } else {
-      // else 
       // current node.next = next
       curNode.next = curNext;
       // current node = next
@@ -61,10 +61,10 @@ const deleteDuplicates = function(head) {
     }
   }
 
+  // In case our curNode is pointing to the last node in the list which is a duplicate
   curNode.next = null;
 
   return head;
-  
 };
 
 const node1 = new ListNode(1);
