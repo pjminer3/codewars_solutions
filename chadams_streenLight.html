@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>StopLight</title>
+    </head>
+    <body>
+      <div class="frame">
+        <div class="light first">
+          <!-- first -->
+        </div>
+
+        <div class="light second">
+          <!-- second -->
+        </div>
+
+        <div class="light third">
+          <!-- third -->
+        </div>
+      </div>
+
+      <style>
+        .frame {
+          display: flex;
+          flex-direction: column;
+          border: 3px solid black;
+          width: 200px;
+          height: 600px;
+          justify-content: space-around;
+          align-items: center;
+        }
+
+        .light {
+          border-radius: 50%;
+          height: 150px;
+          width: 150px;
+          border: 2px solid black;
+          background: grey;
+        }
+
+        .first.active {
+          background: red;
+        }
+
+        .second.active {
+          background: yellow;
+        }
+
+        .third.active {
+          background: green;
+        }
+      </style>
+      <script>
+        const trafficLight = document.querySelector('.frame');
+        const lights = document.querySelectorAll('.light');
+        let lightOn = false;
+
+        lights[0].next = lights[2];
+        lights[1].next = lights[0];
+        lights[2].next = lights[1];
+
+        function toggleLightActive(light) {
+          // remove active from all nodes
+          clearLights()
+
+          // add active to proper light
+          light.classList.add('active');
+        }
+
+        function startLight(e) {
+          if (lightOn) {
+            clearInterval(lightOn);
+            clearLights();
+            lightOn = false;
+            return;
+          }
+          toggleLightActive(e.target);
+
+          lightOn = setInterval(() => {
+            const lit = trafficLight.querySelector('.active');
+            toggleLightActive(lit.next);
+          }, 2000);
+        }
+
+        function clearLights() {
+          lights.forEach(light => {
+              light.classList.remove('active');
+            })
+        };
+
+
+
+        // trafficLight.addEventListener('click', toggleActive)
+        lights.forEach(light => {
+          light.addEventListener('click', startLight);
+        })
+
+
+
+      </script>
+    </body>
+  </html>
