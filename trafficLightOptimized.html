@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>Traffic Light</title>
+  </head>
+  <body>
+    <div class="frame">
+      <div class="light" data-number="0" data-background="red">
+        
+      </div>
+      <div class="light" data-number="1" data-background="yellow">
+
+      </div>
+      <div class="light" data-number="2" data-background="green">
+
+      </div>
+    </div>
+    <div class="buttons">
+      <button data-type="add">Add purple lights</button>
+      <button data-type="remove">Remove Last Light</button>
+    </div>
+    <style>
+      .buttons{
+        display: flex;
+        width: 200px;
+      }
+
+      button {
+        flex-shrink: 1;
+        flex-grow: 1;
+      }
+
+      .frame {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        border: 3px solid black;
+        background: black;
+        width: 200px;
+        height: 600px;
+      }
+
+      .light {
+        border: 3px solid black;
+        height: 100px;
+        width: 100px;
+        background: grey;
+        border-radius: 50%;
+      }
+    </style>
+    <script>
+      const trafficLight = document.querySelector('.frame');
+      let lights = document.querySelectorAll('.light');
+      let lightArray = Array.from(lights);
+      let lightOn = false;
+      let litLight = null;
+      let numOfLights = lightArray.length;
+      const addButton = document.querySelector('button[data-type="add"]');
+      const removeButton = document.querySelector('button[data-type="remove"]');
+
+
+      /* ----------------------- functions -------------------------*/
+      // this function creates the setInterval (starting with the light that's clicked) that iterates through the lights
+      function toggleLights(e) {
+        const thisLight = e.target;
+
+        // if the light is already on, turn it off and return
+        // if the light is off turn it on
+        if (lightOn) { 
+          turnLightOff(lightOn);
+          return; 
+        }
+
+        // grab the light number from the light dataset
+        let lightNumber = Number(thisLight.dataset.number);
+        // set litLight equal to it
+        litLight = lightNumber;
+        // change the background color to it's special background color
+        thisLight.style.background = thisLight.dataset.background;
+
+        // start interval for ever 1 second
+        lightOn = setInterval(() => {
+          // set lightLight's backround to grey
+          lightArray[litLight].style.background = "grey";
+          // set litLight to the previous light
+          litLight = litLight === 0 ? lightArray.length - 1 : litLight - 1;
+          // set new lit light's background to it's color
+          lightArray[litLight].style.background = lightArray[litLight].dataset.background;
+
+        }, 1000)
+
+
+      }
+
+      function turnLightOff(interval) {
+        // set litLight backgound to grey;
+        lightArray[litLight].style.background = "grey";
+        // clear the interval
+        clearInterval(interval);
+        lightOn = false;
+      }
+
+      function addLight() {
+        // create new div node
+        const newLight = document.createElement('div');
+        // set it's class to light
+        newLight.setAttribute('class', "light");
+        // set it's data-number to lightArray length
+        newLight.setAttribute('data-number', lightArray.length);
+        // set it's data-background to purple
+        newLight.setAttribute('data-background', 'purple');
+
+        // append node to trafficLight
+        trafficLight.appendChild(newLight);
+        // redefine lightsArray
+        resetLights();
+      }
+
+      function removeLight() {
+        lights[lightArray.length - 1].remove();
+        resetLights();
+      }
+
+      function resetLights() {
+        lights = document.querySelectorAll('.light');
+        lightArray = Array.from(lights);
+        numOfLights = lightArray.length;
+      }
+
+
+
+      /* ------------------------------ event listeners ------------------------------------- */
+
+      lights.forEach(light => {
+        light.addEventListener('click', toggleLights);
+      });
+
+      addButton.addEventListener('click', addLight);
+      removeButton.addEventListener('click', removeLight);
+
+      
+      
+    </script>
+  </body>
+</html>
