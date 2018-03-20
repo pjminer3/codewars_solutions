@@ -15,7 +15,7 @@ function getMaxProfit(prices) {
   return maxProfit;
 };
 
-console.log(getMaxProfit([10, 7, 5, 8, 11, 9])); // 6
+// console.log(getMaxProfit([10, 7, 5, 8, 11, 9])); // 6
 
 
 
@@ -37,8 +37,8 @@ function getproductsOfAllIntsExceptAtIndex(array) {
   return beforeArray;
 };
 
-console.log(getproductsOfAllIntsExceptAtIndex([1, 7, 3, 4])); // [84, 12, 28, 21]
-console.log(getproductsOfAllIntsExceptAtIndex([1, 5, 6, 9])); // [270, 54, 45, 30]
+// console.log(getproductsOfAllIntsExceptAtIndex([1, 7, 3, 4])); // [84, 12, 28, 21]
+// console.log(getproductsOfAllIntsExceptAtIndex([1, 5, 6, 9])); // [270, 54, 45, 30]
 
 
 
@@ -61,7 +61,40 @@ function maxOf3(array) {
   return max;
 }
 
-console.log(maxOf3([6, 4, 7, -9, 10, -5])); // 450
+// console.log(maxOf3([6, 4, 7, -9, 10, -5])); // 450
 
 
+function mergeRanges(array) {
+  const sortedMeetings = array.sort(function(a, b) {
+    return a.startTime <= b.startTime ? -1 : 1;
+  });
+
+  let startTime = array[0].startTime;
+  let endTime = array[0].endTime;
+  const meetings = [];
+  let runningMeeting = array[0];
+
+  for (let i = 1; i < array.length; i++) {
+    let current = array[i];
+
+    if (current.startTime >= runningMeeting.startTime && current.startTime <= runningMeeting.endTime ) {
+      runningMeeting.endTime = Math.max(current.endTime, runningMeeting.endTime);
+    } else {
+      meetings.push(runningMeeting);
+      runningMeeting = current;
+      [startTime, endTime] = [ runningMeeting.startTime, runningMeeting.endTime ];
+    }
+  };
+  meetings.push(runningMeeting);
+
+  return meetings;
+};
+
+console.log(mergeRanges([
+  {startTime: 0,  endTime: 1},
+  {startTime: 9,  endTime: 10},
+  {startTime: 10, endTime: 12},
+  {startTime: 3,  endTime: 5},
+  {startTime: 4,  endTime: 8},
+]));
 
