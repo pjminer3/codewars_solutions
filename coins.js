@@ -2,7 +2,6 @@
 //   // base cases
 //   const memo = {};
 //   function internalCheck (amount, coins, index = 0){
-
 //     if (amount === 0) {
 //       // memo[`(${amount}, ${index})`] = 1;
 //       return 1;
@@ -26,11 +25,9 @@
 //       if (!memo.hasOwnProperty(`(${amount}, ${index})`)) {
 //         memo[`(${amount}, ${index})`] = internalCheck(amount, coins, index + 1);
 //       }
-
 //       posibilities += memo[`(${amount}, ${index})`];
 //       amount -= currentCoin;
 //     }
-
 
 //     // console.log(memo);
 //     return posibilities;
@@ -44,21 +41,20 @@
 
 // Bottom-Up Approach
 function changePossibilitiesTopDown(amount, coins) {
-  // The index represents the total amount we're trying to get, and the value of the index
+  // In the waysOfDoingNCents array, the index represents the total amount we're trying to get, and the value of the index
   // represents the number of ways possible to get it
-
   // create the initial array of possibilities
   const waysOfDoingNCents = Array(amount + 1).fill(0);
-  // add the number of ways to get 0 (zero ways)
+  // add the number of ways to get 0 (1 way => zero coins)
   waysOfDoingNCents[0] = 1;
 
   // do a forEach over all the coins;
   coins.forEach(coin => {
     // for each coin iterate through the array of values (starting at the value of the coin)
     for (let higherAmount = coin; higherAmount <= amount; higherAmount++) {
-      // subtract the coins value from the index and assign it to variable higherAmountRemainder
+      // subtract the coins value from the index and store it as what's left after using the single coin
       let higherAmountRemainder = higherAmount - coin;
-      // add to the array[higherAmount] += array[higherAmountRemainder];
+      // add to the array[higherAmount] += array[higherAmountRemainder] because each new way to make higherAmountRemainder is a new way to make higherAmount
       waysOfDoingNCents[higherAmount] += waysOfDoingNCents[higherAmountRemainder];
     }
   });
@@ -70,3 +66,4 @@ function changePossibilitiesTopDown(amount, coins) {
 
 console.log(changePossibilitiesTopDown(2, [1, 2])); // 2
 console.log(changePossibilitiesTopDown(4, [1, 2, 3])); // 4
+console.log(changePossibilitiesTopDown(4, [2, 3, 1])); // 4
