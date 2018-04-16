@@ -12,26 +12,22 @@
   * console.log(anagrams); // [ 'abc', 'acb', 'bac', 'bca', 'cab', 'cba' ]
   */
 
-var allAnagrams = function(string, word = '') {
-  // base case
-  if (string.length === 0) return word;
+var allAnagrams = function(string) {
+    if (string.length === 1) {
+        return [string];
+    }
 
-  string = string.split('');
+  const result = {};
 
-  let result = [];
+  string.split('').forEach((letter, idx) => {
+    let remainingLetters = string.slice(0, idx) + string.slice(idx + 1);
 
-  for (let i = 0; i < string.length; i++) {
-    // grab the letter we want
-    let letter = string[i];
-    // add it to the word
-    word += letter;
-    // 
-    result = result.concat(allAnagrams(string.slice(0, i).concat(string.slice(i + 1)).join(''), word));
-    word = word.slice(0, word.length - 1);
-      // console.log(word);
-  }
+    allAnagrams(remainingLetters).forEach(word => {
+        result[letter + word] = true;
+    });
+  });
 
-  return result;
+  return Object.keys(result);
 };
 
 console.log(allAnagrams('abc'));
