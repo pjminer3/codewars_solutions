@@ -1,30 +1,23 @@
-const maxDuffelBagValue = (arrOfCakeObjects, capacity) => {
-    // find the best value and max it out
-    // move on to the next value while there's capacity
-    let cakesSortedByValue = sortCakes(arrOfCakeObjects);
-    let haul = 0;
+const maxDuffleBagValue = (arrOfCakeObjects, maxCapacity) => {
+    if (maxCapacity === 0) return 0;
+    
+    const cakeHaulBasedOnCapacity = Array(maxCapacity + 1).fill(0);
 
-    while (capacity) {
-        let mostValuableCake = cakesSortedByValue[cakesSortedByValue.length - 1];
-        if (mostValuableCake.weight > capacity) {
-            cakesSortedByValue.pop();
-            continue;
-        }
-        haul += mostValuableCake.value;
-        capacity -= mostValuableCake.weight;
+    for (let currentCapacity = 0; currentCapacity <= maxCapacity; currentCapacity++) {
+        arrOfCakeObjects.forEach( cake => {
+            let maxValue = 0;
+            if (cake.weight <= currentCapacity) {
+                let remainder = currentCapacity - cake.weight;
+                maxValue += cake.value;
+                maxValue += cakeHaulBasedOnCapacity[remainder];
+            }
+            cakeHaulBasedOnCapacity[currentCapacity] = Math.max(maxValue, cakeHaulBasedOnCapacity[currentCapacity]);
+        });
     }
 
-    return haul;
-};
-
-const sortCakes = (arrOfCakes) => {
-    return arrOfCakes.sort((a, b) => {
-        let aVal = a.value / a.weight;
-        let bVal = b.value / b.weight;
-
-        return aVal - bVal;
-    });
+    return cakeHaulBasedOnCapacity[maxCapacity];
 }
+
 
 var cakeTypes = [
     {weight: 7, value: 160},
@@ -32,6 +25,19 @@ var cakeTypes = [
     {weight: 2, value: 15},
 ];
 
+var cakeTypes2 = [
+    {weight: 0, value: 0},
+    {weight: 3, value: 90},
+    {weight: 2, value: 15},
+];
+
 var capacity = 20;
 
-console.log(maxDuffelBagValue(cakeTypes, capacity)); // 555
+// // console.log(buildMatrix(3, 20));
+
+// console.log(getCakeMetrics(cakeTypes)[0]);
+// console.log(getCakeMetrics(cakeTypes)[1]);
+
+console.log(maxDuffleBagValue(cakeTypes, capacity)); // 555
+console.log(maxDuffleBagValue(cakeTypes, 0)); // 0
+console.log(maxDuffleBagValue(cakeTypes2, capacity)); // 555
