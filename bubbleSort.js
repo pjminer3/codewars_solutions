@@ -1,18 +1,21 @@
 const bubbleSort = (arr) => {
   for (let k = 1; k < arr.length; k++) {
     let arrayIsSorted = true;
-    for (let i = 0; i <= arr.length - k - 1; i++) {
+    for (let i = 0; i < arr.length - k; i++) {
       if (nextIdxIsSmaller(arr[i], arr[i + 1])) {
-        let storediValue = arr[i];
-        arr[i] = arr[i + 1];
-        arr[i + 1] = storediValue
+        arr = swapValuesAndReturnArray(i, arr);
         arrayIsSorted = false;
       }
     }
-    if (arrayIsSorted) return arr;
+    if (arrayIsSorted) break;
   }
   return arr;
 };
+
+function swapValuesAndReturnArray(i, arr) {
+  [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+  return arr;
+}
 
 function nextIdxIsSmaller(val1, val2) {
   return val1 > val2;
