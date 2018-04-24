@@ -14,7 +14,7 @@ function insertionSort(arr) {
 
 function insertValueAndUpdateArray(currentValue, currentIndex, array) {
   let valueToLeft = array[currentIndex - 1];
-  array[index] = valueToLeft;
+  array[currentIndex] = valueToLeft;
   newIndex = currentIndex - 1;
   if (valueToLeftIsSmallerOrUndefined(currentValue, valueToLeft)){
     array[newIndex] = currentValue;
@@ -26,7 +26,7 @@ function insertValueAndUpdateArray(currentValue, currentIndex, array) {
 }
 
 function valueToLeftIsSmallerOrUndefined(currentValue, valueToLeft) {
-  return valueToLeft === undefined || left <= currentValue;
+  return valueToLeft === undefined || valueToLeft <= currentValue;
 }
 
 
