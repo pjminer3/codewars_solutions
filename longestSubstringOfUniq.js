@@ -1,51 +1,27 @@
 const longestSubstringOfUniq = (string) => {
-  let maxString = '';
-  let maxLength = 0;
-
-  let curString = '';
-  let length = 0;
-  let letters = {};
+  const letters = new Set();
+  let lengthMax = 0;
 
   let begin = 0;
   let end = 0;
 
   while (end < string.length) {
-    let currentLetter = string[end];
-    if (letters[currentLetter]) {
-      if (length > maxLength) {
-        updateMaxes(curString, length);
-      }
-      resetTrackers(currentLetter)
+    if (letters.has(string[end])) {
+      letters.delete(string[begin]);
+      begin++;
     } else {
-      incrementAndUpdate(currentLetter);
+      letters.add(string[end]);
+      end++
+      lengthMax = Math.max(lengthMax, end - begin)
     }
   }
+  return lengthMax;
+}
 
-  if (length > maxLength) {
-    updateMaxes(curString, length);
-  }
+string1 = "abcabcbb";
+string2 = "bbbbb";
+string3 = "pwwkew";
 
-  return maxString;
-
-  function incrementAndUpdate(currentLetter) {
-    letters[currentLetter] = true;
-    curString += currentLetter;
-    length++
-    end++;
-  }
-
-  function resetTrackers(currentLetter) {
-    length = 0;
-    curString = '';
-    letters = {};
-    begin = string.indexOf(currentLetter, begin) + 1;
-    end = begin;
-  }
-
-  function updateMaxes(string, length) {
-    maxString = curString;
-    maxLength = length;
-  }
-};
-
-console.log(longestSubstringOfUniq('pwwkew')); // kwe
+console.log(longestSubstringOfUniq(string1)) // 3
+console.log(longestSubstringOfUniq(string2)) // 1
+console.log(longestSubstringOfUniq(string3)) // 3

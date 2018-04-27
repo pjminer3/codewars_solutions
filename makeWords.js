@@ -1,9 +1,6 @@
 const makeWords = (number, mapping) => {
   if (number === '') return [''];
-  
-  // const numbersArr = number.split('');
   const result = [];
-  // const currentNumber = number.slice(0, 1);
   
   for (let i = 1; i <= number.length; i++) {
     const currentNumber = number.substring(0, i);
@@ -16,7 +13,6 @@ const makeWords = (number, mapping) => {
       });
     }
   }
-
 
   return result;
 };
