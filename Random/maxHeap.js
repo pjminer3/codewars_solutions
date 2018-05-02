@@ -1,7 +1,7 @@
 class MaxHeap {
   constructor() {
-    this.heap = [11, 5, 8, 3, 1, 6, , , , ,];
-    this.size = 6;
+    this.heap = [];
+    this.size = 0;
   }
 
   // 'get index' methods
